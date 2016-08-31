@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <h1 class="center"> Ready? Steady? Bet! </h1>
+
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s3">
+
+            </div>
+            <div class="input-field col s6">
+                <h5 class="right"> Bank Roll $</h5>
+            </div>
+            <div class="input-field col s3">
+                <h5 id="bankroll">  </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s3">
+                <h4 class="right"> Bet Amount </h4>
+            </div>
+            <div class="input-field col s6">
+                <input type="text" name="betAmt" id="betAmt" required/>
+            </div>
+            <div class="input-field col s3">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s3">
+                <h4 class="right"> Guess Number </h4>
+            </div>
+            <div class="input-field col s6">
+                <input type="text" name="guess" id="guess" required />
+            </div>
+            <div class="input-field col s3">
+            </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+              <h5 id="number_is">  </h5>
+              <div id="computerCt"> </div>
+          </div>
+
+            <div class="input-field col s6">
+              <h5>  <div id="returnMsg"> </div> </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" input-field col s6">
+                <button class="btn waves-effect waves-light right" type="submit" name="action">
+                    Bet!
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+
+
+    <script>
+        $(document).ready(function() {
+            $("#bankroll").text(100);
+        });
+
+        $("form").submit(function(event) {
+            bankroll = parseInt($("#bankroll").text());
+            validateBankroll();
+            $("#bankroll").text(bankroll);
+            if (bankroll == 0){
+              $("#returnMsg").text(" Sorry, you are out of money");
+            } else {
+            var bet = parseInt($("#betAmt").val());
+            var guess = parseInt($("#guess").val());
+
+            // validate input
+            var betTF = checkBet(bet);
+            var guessTF = checkGuess(guess);
+
+            if ( betTF && guessTF ) {
+                var number_is = Math.floor((Math.random() * 10) + 1);
+                $("#number_is").text("Number is:")
+                $("#computerCt").text(number_is);
+                checkWinLoss(number_is, guess, bet);
+                $("#betAmt").empty();
+                $("#guess").empty();
+            }
+            }
+            $("#bankroll").text(bankroll);
+            event.preventDefault();
+        });
+
+        function checkBet(betAmt) {
+            if (betAmt < 5 || betAmt > 10) {
+                $("#returnMsg").text("Please enter valid $ amount");
+                return false;
+            }
+            if (betAmt > bankroll){
+              $("#returnMsg").text("Please enter amount less than or equal to your bankroll");
+              return false;
+            }
+
+            return true;
+
+        }
+
+        function checkGuess(guess) {
+            if (guess < 1 || guess > 10) {
+                $("#returnMsg").append("<br>Please enter a guess between 1 and 10");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function checkWinLoss(number_is, player_guess, player_bet) {
+            if ((number_is == player_guess) ||
+                (number_is == plus1(player_guess)) ||
+                (number_is == minus1(player_guess))) {
+                bankroll += player_bet;
+                $("#returnMsg").text("You have won!");
+            } else {
+                checkLoss(player_bet);
+                if (bankroll == 0) {
+                    $("#returnMsg").text("You have lost! Game Over");
+                } else {
+                    $("#returnMsg").text("You have lost. ");
+                }
+            }
+        }
+        function plus1(guess) {
+            return (guess + 1);
+        }
+
+        function minus1(guess) {
+            return (guess - 1);
+        }
+        function checkLoss(player_bet) {
+            bankroll -= player_bet;
+            validateBankroll();
+        }
+
+        function validateBankroll(){
+          if (bankroll < 5){
+              bankroll = 0;
+          }
+        }
+    </script>
+</body>
+
+</html>

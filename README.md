@@ -1,25 +1,62 @@
-# WK6_API_MADNESS
+Week 6: JS and APIs
+===================
 
-Option 1: Flickr Photos
-Lighthouses are in. They are the fashion.
+## API Madness - requirements
 
-So let’s follow the trend and create an app that gets all recent images tagged with "lighthouse" from Flickr and shows them to us, one by one.
+    Goal: Create an app that fetches data from an external service using AJAX with jQuery
+    
+    Option 2: Weather app
+    Difficulty: Medium - ­High(ish)
+    
+    Why build another weather app? Because there are only like 3,420 different weather apps out there, and the jury is 
+    in: we need some more. So let’s all build one!
+    
+    We’ll be using Weather Underground’s JSON API for this
+    
+    Part 1: Search city
+    Allow the user to (partially) type in the name of a city into a text field. Upon submitting the data (clicking a 
+    button or hitting enter), display city names that match their search string.
+    Cities can be searched using WU’s Autocomplete API
+    Note: did not use WU API as city list was not complete.  Instead used Geobytes and limited to US cities
+    
+    Part 2: Weather information
+    When the user clicks the city, fetch and display the weather information for that city. The API documentation can 
+    be found here: http://www.wunderground.com/weather/api/d/docs
+    Please register and verify an account. After that, you can select the STRATUS plan as Developer ($0) to get your key.
 
-Signup URL: https://www.flickr.com/services/api/misc.api_keys.html
+## JS Betting Game (CR) - requirements
 
-The following Flickr API endpoint allows us to search recent images (media) by tag. In our case, we’ll be using the tag "lighthouse" tag (or get creative!): [https://www.flickr.com/services/api/flickr.photos.search.html]
+    Write a single-player betting game that runs in the browser. The player starts off with a bankroll of $100 and bets 
+    money to guess a number randomly chosen by the game. If the player loses all their money, the game ends.
+    
+    The game should ask the player to place a bet between $5 and $10, then to guess a number between 1 and 10.
+    
+    If the player guesses the exact number chosen by the game, they win the bet and their bankroll increases by the 
+    amount they bet. For example, if the player has $50, bets $10 on number 7, and the game chose the number 7, then 
+    the player wins $10 and now has a bankroll of $60.
+    
+    If the player guesses a number that is off by 1, that is, the player guesses either one number higher or one number 
+    lower than the computer's pick, they don't lose any money. For example, if the player has $50, bets $10 on number 7, 
+    and the game chose the number 8, then the player keeps their bet and still has a bankroll of $50.
+    
+    If the player guesses any other number, they lose the bet and their bankroll decreases by the amount they bet. For 
+    example, if the player has $50, bets $10 on number 7, and the game chose the number 2, then the player loses $10 
+    and now has a bankroll of $40.
+    
+    Use prompt and alert to communicate with the user.
 
-Your app should display only one image at a time. Every seconds, fade out that image and fade in the next image from the results from Flickr. It will essentially be slideshow of lighthouse imagery from instagram.
-
-Hint #1: This API is a bit older so it's example shows XML response data. While we could work with XML, it's a bit more arduous and JSON is easier and more mainstream for APIs now. That said, they do support JSON. See: https://www.flickr.com/services/api/response.json.html.
-
-The important part is this:
-
-To return an API response in JSON format, send a parameter "format" in the request with a value of "json".
-Hint #2: Try out the API URLs in your browser or using CURL to see what data/response comes back before plugging that URL into your JavaScript code.
-
-For example, open https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json in your browser. Notice what comes back is an error but it gives you insight. Now try to make it work (you'll need to register for and append a valid API KEY parameter to the URL).
-
-Hint #3: Since we'll be accessing the API from the user's browser (client) from our own domain (localhost) to another domain (flickr), browsers don't allow cross domain AJAX requests. A work-around to this is to use "JSONP", which the API needs to support. Luckily Flickr supports JSONP.
-
-Enhancements: 1. Display the caption - Display the image caption underneath the image. It should of course change when the image changes. 2. Display additional data - Somewhere alongside the image, display the number of likes and comments. 3. Link to flickr page - Either make the entire image a link or add a link/button alongside the image that will take you to the flickr page for that image. It should open the URL in a new window or tab.
+## Google Maps Mashup - requirements
+    Now it's time to build a single page GMaps-based mashup.
+    
+    Option 1: My Fav Places
+    Difficulty: Medium
+    
+    Add markers on the map for all your favourite places to eat or hang out at in Vancouver. (changed to: Chicago)
+    
+    Stretch Goals:
+    
+    Attach an info window to each marker place that shows up if the marker is clicked.
+    Show a list or table of the places along with checkboxes below the map. They should be selected by default. If the 
+    user deselects a place, it’s marker should disappear from the map.
+    Add geolocation capability and show the user where they are on the map so they know where the pins are in respect 
+    to their current location. You can use this example as a guide
